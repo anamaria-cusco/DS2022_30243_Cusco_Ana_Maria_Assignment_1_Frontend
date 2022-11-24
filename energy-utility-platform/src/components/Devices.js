@@ -4,12 +4,12 @@ import ClientService from "../services/client.service";
 import AuthService from "../services/auth.service";
 import { useTable } from "react-table";
 import { useNavigate } from "react-router-dom";
-
 import "bootstrap-icons/font/bootstrap-icons.css";
 import 'font-awesome/css/font-awesome.min.css';
 import "react-datepicker/dist/react-datepicker.css";
 import UserService from "../services/user.service";
 import { format } from 'date-fns';
+import Home from "./Home";
 
 const Devices = () => {
   var selectedDate;
@@ -45,31 +45,6 @@ const Devices = () => {
     retrieveDevices();
   };
   
-
-/*
-  const removeAllDevices = () => {
-    DeviceService.deleteAll()
-      .then((response) => {
-        console.log(response.data);
-        refreshList();
-      })
-      .catch((e) => {
-        console.log(e);
-      });
-  };
-  */
-/*
-  const findByDescription = () => {
-    TutorialDataService.findByDescription(searchDescription)
-      .then((response) => {
-        setDevices(response.data);
-      })
-      .catch((e) => {
-        console.log(e);
-      });
-  };
-  */
-
   const viewDailyConsumption = (rowIndex, startDate) => {
     localStorage.getItem("date");
     console.log("Date:" + startDate);
@@ -199,7 +174,7 @@ const Devices = () => {
           </tbody>
         </table>
       </div>
-    </div>
+    </div>     
     </div>
   );
 };

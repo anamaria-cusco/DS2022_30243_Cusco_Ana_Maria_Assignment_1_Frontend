@@ -2,8 +2,8 @@ import React, { useState, useEffect } from "react";
 import { Routes, Route, Link } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
-
-import AuthService from "./services/auth.service";
+import { Button } from "bootstrap";
+import AuthService, { authHeader } from "./services/auth.service";
 
 import Footer from "./components/Footer";
 import Login from "./components/Login";
@@ -16,16 +16,78 @@ import ManageUsers from "./components/ManageUsers";
 import EditUserForm from "./components/EditUserForm";
 import AddUserForm from "./components/AddUserForm";
 import DailyConsumptionChart from "./components/DailyConsumptionChart"
+import Card from 'react-bootstrap/Card';
+import {
+  Modal,
+  ModalHeader,
+  ModalBody,
+} from "reactstrap"
 
-
-// import AuthVerify from "./common/AuthVerify";
+import * as SockJS from 'sockjs-client'
+import * as Stomp from 'stompjs'
 import EventBus from "./common/EventBus";
 
+const SOCKET_URL = 'http://localhost:8080/ws-message'
+
+
+
 const App = () => {
+  var stompClient = null;
   const [showAdminBoard, setShowAdminBoard] = useState(false);
   const [currentUser, setCurrentUser] = useState(undefined);
+  const [modal, setModal] = useState(false);
+  const toggle = () => setModal(!modal); //Set hide or show modal
+  const [notifications, setNotifications] = useState([]);
+
+
+  const connect = () => {
+    const websocket = new SockJS(SOCKET_URL)
+    const stompClient = Stomp.over(websocket)
+    stompClient.connect({}, (frame) => {
+      console.log('Connected: ' + frame);
+      stompClient.subscribe('/topic/message', function(notification) {
+        handleNotification(notification);
+      })
+      })
+  }
+
+  
+  const handleNotification = (notification) => {
+    var not = JSON.parse(notification.body)
+    if (AuthService.getCurrentUser()) {
+      if(not.username === AuthService.getCurrentUser().username){
+        setNotifications(notifications => [...notifications, not]);
+      }
+  }
+}
+  
+  const displayNotification = () => {
+    return (
+        <div>
+        {notifications.map((notification, index) => ( 
+            <Card className="mb-3 ">
+            <Card.Header>Device Consumption</Card.Header>
+            <Card.Body>
+              <Card.Title>{notification.deviceDescription}</Card.Title>
+              <Card.Text>Monitored value from {notification.deviceDescription} excedded max consumption value of device. </Card.Text>
+              <Card.Text>  Timestamp: {notification.timestamp} </Card.Text>  
+              <Card.Text>Current value: {notification.currentValue} (max value: {notification.maxValue}) </Card.Text>
+            </Card.Body>
+            </Card>
+        ))}
+        </div>
+  )}
+  
+  const disconnected = () => {
+    if (stompClient !== null) {
+      stompClient.disconnect();
+   }
+    console.log("Disconnected");
+    }
+
 
   useEffect(() => {
+    connect();
     const user = AuthService.getCurrentUser();
 
     if (user) {
@@ -87,6 +149,16 @@ const App = () => {
             </li>
             </div>
           )}
+          
+          {!showAdminBoard && currentUser && (
+            <div className="navbar-nav ml-auto">
+            <li className="nav-item">
+            <button className="btn btn-dark btn-m me-2" onClick={toggle}>
+              <i className="fa fa-bell"></i>
+            </button>
+            </li>
+            </div>
+          )}
       
           
         {currentUser ? (
@@ -107,6 +179,16 @@ const App = () => {
           </div>
         )}
       </nav>
+      
+      
+      <Modal isOpen={modal} toggle={toggle}>
+        <ModalHeader toggle={toggle}>Notifications</ModalHeader>
+        <ModalBody>
+          <div className="align-center">     
+              {displayNotification()}
+          </div>
+        </ModalBody>
+      </Modal>
 
       <div className="App">
         <Routes>
@@ -119,7 +201,7 @@ const App = () => {
           <Route exact path="/manage_users" element={<ManageUsers />} />
           <Route exact path="/edit_user/:id" element={<EditUserForm />} />
           <Route exact path="/add_user" element={<AddUserForm />} />
-          <Route exact path="/devices" element={<Devices />} />
+          <Route exact path="/devices" element={<Devices/>} />
           <Route exact path="/view_daily_consumption/:id" element={<DailyConsumptionChart/>} />
         </Routes>
       </div>
