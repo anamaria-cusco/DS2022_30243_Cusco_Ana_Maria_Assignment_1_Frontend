@@ -10,10 +10,10 @@ export default function Body() {
             <h1>KEEP TRACK OF YOUR ENERGY CONSUMPTION</h1>
           </div>
           <div className="feature-item xyz-nested">
-          <h1>MANAGE YOUR SMART DEVICES</h1>
+            <h1>MANAGE YOUR SMART DEVICES</h1>
           </div>
           <div className="feature-item xyz-nested">
-          <h1>VIEW REAL TIME CHARTS</h1>
+            <h1>VIEW REAL TIME CHARTS</h1>
           </div>
         </div>
         <div
@@ -22,13 +22,13 @@ export default function Body() {
 >
         <div className="section-left" xyz="fade left stagger">
           <div className="section-item xyz-nested">
-          <p>CLIENT: view devices, view daily consumption chart</p>
+          <h1>CLIENT: view devices, view daily consumption chart</h1>
           </div>
           <div className="section-item xyz-nested">
-          <p>ADMIN: manage devices and users</p>
+          <h1>ADMIN: manage devices and users</h1>
           </div>
           <div className="section-item xyz-nested">
-          <p>Login/Logout: multiple users</p>
+          <h1>Login/Logout: multiple users</h1>
           </div>
         </div>
         <div className="section-right xyz-nested" xyz="fade big delay-10">

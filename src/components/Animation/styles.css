@@ -28,19 +28,23 @@ body {
     padding: 30px 0;
     display: flex;
     justify-content: center;
+  
   }
   .feature-item {
     width: 20vw;
-    height: 15vh;
+    height: 20vh;
     border-radius: 5px;
     background-color: chocolate;
     margin: 0 10px;
+    justify-content: center;
+    display: flex;
   }
   .feature-item h1{
     font-family: ui-sans-serif;
     font-size: x-large;
     font-style: italic;
     text-align: center;
+    margin: auto; 
   }
   .page-section {
     margin: 15px;
@@ -52,16 +56,30 @@ body {
   .section-left {
     display: flex;
     flex-direction: column;
-    width: 50%;
+    width: 70%;
+    margin: auto; 
+    
   }
   .section-item {
+    
     width: 80%;
-    height: 5vh;
+    height: 7vh;
     border-radius: 5px;
     margin: 5px 0;
     background-color:#496930;
-    
+    display: flex;
+
   }
+  
+  .section-item h1{
+    font-family: ui-sans-serif;
+    font-size: x-large;
+    font-style: bold;
+    text-align: center;
+    display: flex;
+    margin: auto; 
+  }
+  
   .section-right {
     background-image: url("../../assets/img/jpeg/autumn.jpg"); ;
     border-radius: 5px;
@@ -69,10 +87,12 @@ body {
     display: flex;
     flex-direction: row;
     justify-content: center;
+
   }
   .section-right h2{
     font-family: ui-sans-serif;
     font-size: x-large;
     font-style: italic;
     text-align: center;
+    display: flex;
   }
