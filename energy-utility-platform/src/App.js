@@ -26,8 +26,9 @@ import {
 import * as SockJS from 'sockjs-client'
 import * as Stomp from 'stompjs'
 import EventBus from "./common/EventBus";
+import 'react-app-polyfill/stable'
 
-const SOCKET_URL = 'http://localhost:8080/ws-message'
+const SOCKET_URL = 'https://energy-utility-platform-amc.herokuapp.com/ws-message'
 
 
 

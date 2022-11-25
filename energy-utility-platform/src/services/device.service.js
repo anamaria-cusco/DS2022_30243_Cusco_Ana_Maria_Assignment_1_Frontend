@@ -1,6 +1,6 @@
 import axios from "axios";
 import { authHeader } from "./auth.service";
-const API_URL = "http://localhost:8080/api/admin/device/";
+const API_URL = "https://energy-utility-platform-amc.herokuapp.com/api/admin/device/";
 
 
 const getAllDevices = () =>  {

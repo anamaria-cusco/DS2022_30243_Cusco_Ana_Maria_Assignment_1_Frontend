@@ -1,7 +1,7 @@
 import axios from "axios";
 import { authHeader } from "./auth.service";
 
-const API_URL = "http://localhost:8080/api/user/";
+const API_URL = "https://energy-utility-platform-amc.herokuapp.com/api/user/";
 
   
   const getDailyConsumption = (id, date) => {
