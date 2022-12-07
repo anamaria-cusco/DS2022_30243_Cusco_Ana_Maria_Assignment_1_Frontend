@@ -28,7 +28,7 @@ import * as Stomp from 'stompjs'
 import EventBus from "./common/EventBus";
 import 'react-app-polyfill/stable'
 
-const SOCKET_URL = 'https://energy-utility-platform-amc.herokuapp.com/ws-message'
+const SOCKET_URL = 'https://energy-platform-am-backend.herokuapp.com/ws-message'
 
 
 

@@ -4,7 +4,7 @@ module.exports = function (app) {
   app.use(
     "/api",
     createProxyMiddleware({
-      target: "https://energy-utility-platform-amc.herokuapp.com",
+      target: "https://energy-platform-am-backend.herokuapp.com",
       changeOrigin: true,
     })
   );

@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_URL = "https://energy-utility-platform-amc.herokuapp.com/api/auth/";
+const API_URL = "https://energy-platform-am-backend.herokuapp.com/api/auth/";
 
 
 export function authHeader() {
